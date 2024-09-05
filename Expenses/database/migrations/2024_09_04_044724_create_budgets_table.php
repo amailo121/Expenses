@@ -11,9 +11,12 @@ class CreateBudgetsTable extends Migration
         Schema::create('budgets', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id'); // ユーザーID
-            $table->unsignedBigInteger('category_id'); // カテゴリID
-            $table->decimal('amount', 10, 2); // 予算金額
+            $table->string('category'); // カテゴリ名
+            $table->decimal('amount', 10, 2); // 金額
             $table->timestamps();
+
+            // 外部キー制約
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
